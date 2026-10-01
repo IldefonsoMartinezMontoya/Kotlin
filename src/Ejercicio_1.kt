@@ -1,2 +1,0 @@
-class Ejercicio_1 {
-}
