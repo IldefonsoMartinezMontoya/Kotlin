@@ -1,4 +1,4 @@
-package practica_1_EjerciciosLenguajeKotlin
+package practica_1
 
 fun main() {
     print("Elige una opcion(1-5): ")

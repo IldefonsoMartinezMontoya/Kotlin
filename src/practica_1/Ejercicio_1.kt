@@ -1,4 +1,4 @@
-package practica_1_EjerciciosLenguajeKotlin
+package practica_1
 
 import java.util.Scanner
 
