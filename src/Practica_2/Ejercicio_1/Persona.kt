@@ -1,26 +1,20 @@
 package Practica_2.Ejercicio_1
-abstract class Persona(var nombre:String, var edad:Int) {
+
+import java.util.Scanner
+
+abstract class Persona(nombre: String, edad: Int) {
     var Nombre: String = nombre
-        get() {
-            TODO()
-        }
+        get() = field
         set(value) {
-            if (value.isNotEmpty()) {
-                field = value.trim()
-            } else {
-                throw IllegalArgumentException("No puede estar vacío")
-            }
+            require(value.isNotBlank()) { "No puede estar vacío" }
+            field = value.trim()
         }
+
     var Edad: Int = edad
-        get() {
-            TODO()
-        }
+        get() = field
         set(value) {
-            if (value < 0) {
-                throw IllegalArgumentException("Negativo")
-            } else {
-                field = value
-            }
+            require(value >= 0) { "No puede ser negativo" }
+            field = value
         }
     val String.iniciales: String
         get() = trim().split(" ").filter { it.isNotBlank() }.joinToString("") {it.first().uppercase()}
@@ -29,10 +23,7 @@ abstract class Persona(var nombre:String, var edad:Int) {
 }
 class Estudiante(nombre: String, edad: Int, curso: String) : Persona(nombre, edad) {
     var Curso:String = curso
-        get() {
-            TODO()
-        }
-        set(value) {
+        private set (value) {
             if (value.isNotEmpty()) {
                 field = value.trim()
             } else {
@@ -41,19 +32,16 @@ class Estudiante(nombre: String, edad: Int, curso: String) : Persona(nombre, eda
         }
 
     override fun presentarse() {
-        println("Soy $nombre de $edad y curso $Curso")
+        println("Soy $Nombre de $Edad y curso $Curso")
     }
 
     override fun iniciales() {
-        println(nombre.iniciales)
+        println(Nombre.iniciales)
     }
 }
 class Profesor(nombre: String, edad: Int, aniosTrabajo: Int) : Persona(nombre, edad) {
     var AniosTrabajo: Int = aniosTrabajo
-        get() {
-            TODO()
-        }
-        set(value) {
+        private set(value) {
             if (value < 0) {
                 throw IllegalArgumentException("Negativo")
             } else {
@@ -62,9 +50,18 @@ class Profesor(nombre: String, edad: Int, aniosTrabajo: Int) : Persona(nombre, e
         }
 
     override fun presentarse() {
-        println("Soy $nombre de $edad y llevo ejerciendo $AniosTrabajo")
+        println("Soy $Nombre de $Edad y llevo ejerciendo $AniosTrabajo")
     }
     override fun iniciales() {
-        println(nombre.iniciales)
+        println(Nombre.iniciales)
     }
 }
+fun main() {
+    val sc = Scanner(System.`in`)
+    var nombre: String = sc.nextLine()
+    var edad: Int = sc.nextInt()
+    var curso: String = sc.nextLine()
+        val p1 = Estudiante(nombre, edad, curso)
+        p1.presentarse()
+        p1.iniciales()
+    }
